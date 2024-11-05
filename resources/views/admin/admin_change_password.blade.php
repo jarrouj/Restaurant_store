@@ -14,7 +14,7 @@
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Contacts</a></li>
-                            <li class="breadcrumb-item active">Profile</li>
+                            <li class="breadcrumb-item active">Chnage Password</li>
                         </ol>
                     </div>
 
@@ -76,44 +76,30 @@
                 <!-- end card -->
 
                 <div class="card-body p-4">
-                    <form method="POST" action="{{ route('admin.profile.store') }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('admin.password.update') }}" enctype="multipart/form-data">
                         @csrf
                     <div class="row">
                         <div class="col-lg-6">
                             <div>
                                 <div class="mb-3">
-                                    <label for="example-text-input" class="form-label">Name</label>
-                                    <input class="form-control" name="name" type="name" value="{{ $profileData->name }}" id="example-text-input">
+                                    <label for="example-text-input" class="form-label">Old Password</label>
+                                    <input class="form-control @error('old_password') is-invalid @enderror" name="old_password" type="password" id="old_password">
+                                    @error('old_password')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="example-text-input" class="form-label">Email</label>
-                                    <input class="form-control" name="email" type="email" value="{{ $profileData->email }}" id="example-text-input">
+                                    <label for="example-text-input" class="form-label">New Password</label>
+                                    <input class="form-control @error('new_password') is-invalid @enderror" name="new_password" type="password" id="new_password">
+                                    @error('new_password')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="example-text-input" class="form-label">Phone</label>
-                                    <input class="form-control" name="phone" type="text" value="{{ $profileData->phone }}" id="example-text-input">
-                                </div>
-
-
-                            </div>
-                        </div>
-
-
-                        <div class="col-lg-6">
-                            <div class="mt-3 mt-lg-0">
-                                <div class="mb-3">
-                                    <label for="example-text-input" class="form-label">Address</label>
-                                    <input class="form-control" name="address" type="text" value="{{ $profileData->address }}" id="example-text-input">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="example-text-input" class="form-label">Profile Image</label>
-                                    <input class="form-control" name="photo" type="file" id="image">
-                                </div>
-
-                                <div class="mb-3">
-                                    <img id="showImage" src="{{ (!empty($profileData->photo)) ? url('upload/admin_images/' .$profileData->photo) : url('upload/no_image.jpg') }}" alt="" class="rounded-circle p-1 bg-primary" width="110">
+                                    <label for="example-text-input" class="form-label">Confirm New Password</label>
+                                    <input class="form-control" name="new_password_confirmation" type="password" id="new_password_confirmation">
                                 </div>
 
                                 <div class="mt-4">
@@ -121,6 +107,9 @@
                                 </div>
                             </div>
                         </div>
+
+
+
                     </div>
                 </form>
                 </div>
@@ -134,18 +123,6 @@
 
     </div> <!-- container-fluid -->
 </div>
-
-<script type="text/javascript">
-    $(document).ready(function(){
-        $('#image').change(function(e){
-            var reader = new FileReader();
-            reader.onload = function(e){
-                $('#showImage').attr('src',e.target.result);
-            }
-            reader.readAsDataURL(e.target.files['0']);
-        })
-    })
-</script>
 
 
 @endsection

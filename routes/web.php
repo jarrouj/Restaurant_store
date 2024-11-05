@@ -21,9 +21,18 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 Route::middleware('admin')->group(function(){
+    // {{ Admin Profile and main dashboard }}
     Route::get('/admin/dashboard', [AdminController::class, 'AdminDashboard'])->name('admin.dashboard');
     Route::get('/admin/profile', [AdminController::class, 'AdminProfile'])->name('admin.profile');
+    // {{ Admin Add profile data }}
+    Route::post('/admin/profile/store', [AdminController::class, 'AdminProfileStore'])->name('admin.profile.store');
+    // {{ Admin Update Password }}
+    Route::get('/admin/change/password', [AdminController::class, 'AdminChangePassword'])->name('admin.change.password');
+    Route::post('/admin/update/password', [AdminController::class, 'AdminPasswordUpdate'])->name('admin.password.update');
 });
+
+
+
 Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->name('admin.login');
 Route::post('/admin/login_submit', [AdminController::class, 'AdminLoginSubmit'])->name('admin.login_submit');
 Route::get('/admin/logout', [AdminController::class, 'AdminLogout'])->name('admin.logout');
