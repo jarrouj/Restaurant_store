@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -36,3 +37,18 @@ Route::middleware('admin')->group(function(){
 Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->name('admin.login');
 Route::post('/admin/login_submit', [AdminController::class, 'AdminLoginSubmit'])->name('admin.login_submit');
 Route::get('/admin/logout', [AdminController::class, 'AdminLogout'])->name('admin.logout');
+
+
+
+/// ALL ROUTE FOR CLIENT
+
+Route::middleware('client')->group(function(){
+    Route::get('/client/dashboard', [ClientController::class, 'ClientDashboard'])->name('client.dashboard');
+
+});
+
+
+Route::get('/client/login', [ClientController::class, 'ClientLogin'])->name('client.login');
+Route::get('/client/register', [ClientController::class, 'ClientRegister'])->name('client.register');
+Route::post('/client/register/submit', [ClientController::class, 'ClientRegisterSubmit'])->name('client.register_submit');
+Route::post('/client/login/submit', [ClientController::class, 'ClientLoginSubmit'])->name('client.login_submit');
